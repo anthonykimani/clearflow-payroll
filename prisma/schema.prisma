@@ -11,6 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Batch {
@@ -27,21 +28,21 @@ model Batch {
 }
 
 model PayoutItem {
-  id                String   @id @default(uuid())
-  batchId           String   @map("batch_id")
+  id               String   @id @default(uuid())
+  batchId          String   @map("batch_id")
   recipientAddress String   @map("recipient_address")
-  destChainId       Int      @map("dest_chain_id")
-  preferredToken    String   @map("preferred_token")
-  sourceChainId     Int      @map("source_chain_id")
-  sourceToken       String   @map("source_token")
-  amount            Decimal
-  status            String   @default("planned")
-  idempotencyKey    String   @unique @map("idempotency_key")
-  executionMeta     Json?    @map("execution_metadata")
-  failedReason      String?  @map("failed_reason")
-  retryCount        Int      @default(0) @map("retry_count")
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  destChainId      Int      @map("dest_chain_id")
+  preferredToken   String   @map("preferred_token")
+  sourceChainId    Int      @map("source_chain_id")
+  sourceToken      String   @map("source_token")
+  amount           Decimal
+  status           String   @default("planned")
+  idempotencyKey   String   @unique @map("idempotency_key")
+  executionMeta    Json?    @map("execution_metadata")
+  failedReason     String?  @map("failed_reason")
+  retryCount       Int      @default(0) @map("retry_count")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
 
   batch Batch @relation(fields: [batchId], references: [id])
 
