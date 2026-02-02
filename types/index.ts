@@ -1,8 +1,9 @@
 export interface Policy {
     maxFeeBps: number;
     maxSlippageBps: number;
-    minPayoutUSD: number[];
+    minPayoutUSD: number;
     bannedTokens: string[];
+    allowedChains: number[];
 }
 
 export type BatchStatus = 'draft' | 'planned' | 'executing' | 'completed' | 'failed';
