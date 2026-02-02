@@ -29,7 +29,8 @@ export function parsePayoutCSV(csvText: string): ParsedCSVResult {
         }
         const [recipientAddress, chainIdStr, preferredToken, amount] = parts;
         // Validate address
-        if (!isAddress(recipientAddress)) {
+        const addressRegex = /^0x[a-fA-F0-9]{40}$/;
+        if (!addressRegex.test(recipientAddress)) {
             errors.push({ row: rowNum, message: `Invalid address: ${recipientAddress}` });
             continue;
         }
